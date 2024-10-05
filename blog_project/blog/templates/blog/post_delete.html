@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Posts{% endblock%}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4">
+                <p>
+                    <strong>{{ post.title }}, Are you sure you want to delete this post?</strong>
+                    <form action="{% url 'blog:postdelete' post.id %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger"  style="width: 75px;">Delete</button>
+                        <a href="{% url 'blog:postoperations' %}" class="btn btn-dark" style="width: 75px;">No</a>
+                    </form>
+
+                </p>
+            </div>
+            <div class="col-4"></div>
+        </div>
+    </div>
+{% endblock %}

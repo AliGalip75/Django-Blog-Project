@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Posts{% endblock%}
+
+{% block content %}
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-12">
+                
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width:200px;"></th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Content</th>
+                            <th scope="col">Author</th>
+                            <th scope="col">Published_date</th>
+                            <th scope="col">Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for post in posts %}
+                            <tr>
+                                <td>
+                                    <img src="{{ post.image.url }}" class="img-fluid rounded" >
+                                </td>
+                                <td>{{ post.title }}</td>
+                                <td>{{ post.subtitle }}</td>
+                                <td>{{ post.author }}</td>
+                                <td>{{ post.published_date }}</td>
+                                <td>
+                                    <a href="{% url 'blog:postedit' post.id %}" class="btn btn-dark btn-sm">Update</a>
+                                    <a href="{% url 'blog:postdelete' post.id %}" class="btn btn-danger btn-sm">Delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
