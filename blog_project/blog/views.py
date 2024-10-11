@@ -2,6 +2,7 @@ from django.shortcuts import render,get_object_or_404,redirect
 from blog.forms import CreatePostForm, EditPostForm
 from .models import Post, Category, User
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required, user_passes_test
 # Create your views here.
 
 
@@ -18,12 +19,15 @@ def post_list(request):
     
     return render(request, 'blog/post_list.html', {'page_obj':page_obj, 'categories':categories})
 
+
 def post_details(request, slug):
     post = get_object_or_404(Post, slug=slug)
     return render(request, 'blog/post_details.html', {'post':post})
 
+
 def home(request):
     return render(request, 'blog/home.html')
+
 
 def get_posts_by_category(request, slug):
     categories = Category.objects.all()
@@ -48,8 +52,16 @@ def post_search(request):
     return render(request, 'blog/search.html', context={'categories':categories, 'posts':posts})
 
 
+#kullanıcı admin ise ve login durumundaysa true döndürür ve method çalışır, admin değilse veya login değilse false döndürür ve method çalışmaz
+def is_admin(user): 
+    if user.is_authenticated and user.is_superuser:
+        return True
+    else:
+        return False
+    
+
+@user_passes_test(is_admin) # parametre true ise method çalışır, değilse çalışmaz ve login sayfasına yönlendirir.
 def add_post(request):   
-        
     if request.method == 'POST':
         form = CreatePostForm(request.POST, request.FILES)
         if form.is_valid():
@@ -60,9 +72,12 @@ def add_post(request):
     return render(request, 'blog/add_post.html', context={'form':form})
 
 
+
+@user_passes_test(is_admin)
 def post_operations(request):
     posts = Post.objects.all()
     return render(request, 'blog/post_op.html', {'posts':posts})
+
 
 
 def post_edit(request, id):
@@ -75,6 +90,7 @@ def post_edit(request, id):
     else:
         form = EditPostForm(instance=post)
     return render(request, 'blog/post_edit.html', {'form':form, 'id':id, 'img':post.image.url})
+
 
 
 def post_delete(request, id):

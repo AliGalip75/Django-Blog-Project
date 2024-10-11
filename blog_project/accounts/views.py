@@ -1,22 +1,37 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-
+from django.contrib import messages
+from accounts.forms import LoginUserForm
 # Create your views here.
 def login_user(request):
-    if request.user.is_authenticated:
-        return redirect('/posts')
+    if request.user.is_authenticated and not request.user.is_superuser and not 'next' in request.GET: 
+        return render(request, 'accounts/login.html', {'error':'You are not allowed'})
+    
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('/')
+        form = LoginUserForm(request, data=request.POST)
+        if form.is_valid(): 
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.add_message(request, messages.SUCCESS, 'Successfully logged in')
+                next_url = request.GET.get('next', None)
+                if next_url is None:
+                    return redirect('/posts')
+                else:
+                    if user.is_superuser:
+                        return redirect(next_url)
+                    else:
+                        return redirect('/')
+            else:
+                return render(request, 'accounts/login.html', {'form':form})
         else:
-            return render(request, 'accounts/login.html', {'error':'username or password is wrong'})
+            return render(request, 'accounts/login.html', {'form':form})
     else:    
-        return render(request, 'accounts/login.html')
+        form = LoginUserForm()
+        return render(request, 'accounts/login.html', {'form':form})
 
 
 def register_user(request):
@@ -43,6 +58,7 @@ def register_user(request):
 
 def logout_user(request):
     logout(request)
+    messages.add_message(request, messages.SUCCESS, 'Successfully logged out')
     return redirect('/accounts/login')
                 
 
