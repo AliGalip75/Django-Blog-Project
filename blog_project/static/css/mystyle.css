@@ -1,3 +1,11 @@
 .myclass {
-    background-image: url('static/img/deneme.jpg');
+    background-image: url('static/img/deneme2.jpg');
+    background-size: cover; 
+    background-position: center;
+    height: 100vh; 
+    color: white; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    text-align: center
 }
