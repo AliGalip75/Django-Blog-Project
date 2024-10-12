@@ -1,0 +1,64 @@
+<nav class="navbar navbar-expand-md bg-body-tertiary fixed-navbar-height" data-bs-theme="dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Blog App</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbar">
+
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'blog:postlist' %}">Posts</a>
+                </li>
+                {% if user.is_superuser %}
+                
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'blog:addpost' %}">Admin Add Post</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'blog:postoperations' %}">Admin Posts</a>
+                </li>
+                
+                {% endif %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Dropdown
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav me-2 ">
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">{{user.username}}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'accounts:logoutuser' %}">Logout</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'accounts:registeruser' %}">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'accounts:loginuser' %}">Login</a>
+                    </li>
+                {% endif %}
+            </ul>
+            {% if page_obj is not None or posts is not None%}
+            <form class="d-flex" action="{% url 'blog:postsearch' %}" role="search">
+                <input class="form-control me-1 mt-3" type="text" name="q" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-light mt-3" type="submit">Search</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>  
+</nav>

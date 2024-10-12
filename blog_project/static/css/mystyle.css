@@ -1,11 +1,6 @@
-.myclass {
-    background-image: url('static/img/deneme2.jpg');
-    background-size: cover; 
-    background-position: center;
-    height: 100vh; 
-    color: white; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    text-align: center
+.fixed-navbar-height {
+    height: 80px; /* İstediğiniz yüksekliği buraya girin */
+    padding-top: 0;
+    padding-bottom: 0;
+    line-height: 80px; /* Yüksekliğe uygun satır yüksekliği */
 }

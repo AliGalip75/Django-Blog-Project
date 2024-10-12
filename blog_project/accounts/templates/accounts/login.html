@@ -1,17 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
 {% block title %}Login{% endblock %}
 
-{% block search %}
-    <ul class="navbar-nav mt-2 mb-lg-0">
-        <form class="d-flex" action="{% url 'blog:postsearch' %}" role="search">
-            <input class="form-control me-1" type="text" name="q" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-light" type="submit">Search</button>
-        </form>
-    </ul>
-{% endblock %}
 
 {% block content %}
     <div class="container mt-3">

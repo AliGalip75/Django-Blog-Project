@@ -3,6 +3,10 @@
 
 {% block title %}Posts{% endblock%}
 
+{% block css %}
+    <link href="{% static 'blog/css/style.css' %}" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
     <div class="container mt-3">
         <div class="row">
@@ -11,7 +15,7 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col" style="width:200px;"></th>
+                            <th scope="col" style="width:250px;"></th>
                             <th scope="col">Title</th>
                             <th scope="col">Content</th>
                             <th scope="col">Author</th>
@@ -30,8 +34,8 @@
                                 <td>{{ post.author }}</td>
                                 <td>{{ post.published_date }}</td>
                                 <td>
-                                    <a href="{% url 'blog:postedit' post.id %}" class="btn btn-dark btn-sm">Update</a>
-                                    <a href="{% url 'blog:postdelete' post.id %}" class="btn btn-danger btn-sm">Delete</a>
+                                    <a href="{% url 'blog:postedit' post.id %}" class="btn btn-dark btn-sm" style="width: 70px;">Update</a>
+                                    <a href="{% url 'blog:postdelete' post.id %}" class="btn btn-danger btn-sm" style="width: 70px;">Delete</a>
                                 </td>
                             </tr>
                         {% endfor %}

@@ -1,11 +1,23 @@
 .errorlist{
     list-style-type: none;
-    color: red;
+    color: rgb(185, 45, 68);
     margin: 0;
     padding: 0;
 
 }
 
 .invalid input, .invalid textarea{
-    border-color: #dc3545;
+    border-color: #bd2f2f;
 }
+
+.myclass{
+    background-image: url('/static/img/deneme2.jpg');background-size: cover; 
+    background-position: center;
+    height: 100vh; 
+    color: white; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    text-align: center; 
+}
+
