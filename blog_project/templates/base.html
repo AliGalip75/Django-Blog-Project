@@ -30,7 +30,7 @@
                 
                 <div class="collapse navbar-collapse" id="navbar">
 
-                    <ul class="navbar-nav me-auto mb-lg-0 mb-5">
+                    <ul class="navbar-nav me-auto">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{% url 'blog:postlist' %}">Posts</a>
                         </li>
@@ -59,7 +59,7 @@
                     </ul>
 
                 
-                    <ul class="navbar-nav me-0 ">
+                    <ul class="navbar-nav me-2 ">
                         {% if user.is_authenticated %}
                             <li class="nav-item">
                                 <a class="nav-link active" href="#">{{user.username}}</a>
@@ -79,9 +79,9 @@
 
                     {% block search %}
                     
-                        <form class="d-flex" action="{% url 'blog:postsearch' %}" role="search">
-                            <input class="form-control me-1" type="text" name="q" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-light" type="submit">Search</button>
+                        <form class="d-flex " action="{% url 'blog:postsearch' %}" role="search">
+                            <input class="form-control me-1 mt-3" type="text" name="q" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-light mt-3" type="submit">Search</button>
                         </form>
                     
                     {% endblock %}

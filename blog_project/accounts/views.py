@@ -2,7 +2,8 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from accounts.forms import LoginUserForm
+from accounts.forms import LoginUserForm, NewUserForm
+from django.contrib.auth.forms import UserCreationForm
 # Create your views here.
 def login_user(request):
     if request.user.is_authenticated and not request.user.is_superuser and not 'next' in request.GET: 
@@ -35,7 +36,7 @@ def login_user(request):
 
 
 def register_user(request):
-    if request.method == 'POST':
+    '''if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
         repassword = request.POST['repassword']
@@ -53,12 +54,32 @@ def register_user(request):
         else:
             return render(request, 'accounts/register.html', {'error':'Please Enter Your Password Carefully'})
     else:
-        return render(request, 'accounts/register.html')
+        return render(request, 'accounts/register.html')'''
+        
+        
+    if request.method == 'POST':
+        form = NewUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            user = authenticate(request, username=username, password=password)
+            login(request, user)
+            return redirect('/')
+        else:
+            return render(request, 'accounts/register.html', {'form':form})
+    else:
+        form = NewUserForm()
+        return render(request, 'accounts/register.html', {'form':form})
+        
         
 
 def logout_user(request):
     logout(request)
     messages.add_message(request, messages.SUCCESS, 'Successfully logged out')
     return redirect('/accounts/login')
+           
                 
+            
 
