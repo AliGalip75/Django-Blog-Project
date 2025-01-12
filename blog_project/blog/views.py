@@ -10,7 +10,7 @@ def post_list(request):
     posts = Post.objects.all().order_by('-published_date')
     categories = Category.objects.all()
     
-    paginator = Paginator(posts, 6)
+    paginator = Paginator(posts, 9)
     page = request.GET.get('page',1) #sayfadan 'page' değeri geliyorsa al, gelmiyorsa 1 al. bu satır şuan hangi sayfada olduğumuzu alır.
     page_obj = paginator.get_page(page)
     
@@ -26,14 +26,14 @@ def post_details(request, slug):
 
 
 def home(request):
-    return render(request, 'blog/home.html')
+    return render(request, 'blog/index.html')
 
 
 def get_posts_by_category(request, slug):
     categories = Category.objects.all()
     posts = Post.objects.filter(category__slug = slug).order_by('-published_date')
     
-    paginator = Paginator(posts, 6)
+    paginator = Paginator(posts, 9)
     page = request.GET.get('page',1) #sayfadan 'page' değeri geliyorsa al, gelmiyorsa 1 al. bu satır şuan hangi sayfada olduğumuzu alır.
     page_obj = paginator.get_page(page)
     

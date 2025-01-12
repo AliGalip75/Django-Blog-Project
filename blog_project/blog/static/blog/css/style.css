@@ -11,9 +11,9 @@
 }
 
 .myclass{
-    background-image: url('/static/img/deneme2.jpg');background-size: cover; 
+    background-image: url('/static/img/sunset.jpg');background-size: cover; 
     background-position: center;
-    height: 100vh; 
+    height: 873px; 
     color: white; 
     display: flex; 
     justify-content: center; 

@@ -6,7 +6,7 @@ from blog.models import Post
                             max_length=5,
                             error_messages={'required':'Please Enter A Value', 'max_length':'max 5'},
                             widget=forms.TextInput(attrs={'class':'form-control'})
-                            )#required zaten varsayılan olarak true
+                            )#required zaten varsayilan olarak true
     content = forms.CharField(widget=forms.Textarea(attrs={'class':'form-control'}))
     image = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))'''
     

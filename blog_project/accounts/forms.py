@@ -31,10 +31,14 @@ class NewUserForm(UserCreationForm):
         
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['password1'].widget = forms.widgets.PasswordInput(attrs={'class':'form-control'})
-        self.fields['password2'].widget = forms.widgets.PasswordInput(attrs={'class':'form-control'})
-        self.fields['username'].widget = forms.widgets.TextInput(attrs={'class':'form-control'})
-        self.fields['email'].widget = forms.widgets.EmailInput(attrs={'class':'form-control'})
+        self.fields['password1'].widget = forms.widgets.PasswordInput(attrs={'class':'form-control',
+                                                                             'placeholder' : 'Enter Password'})
+        self.fields['password2'].widget = forms.widgets.PasswordInput(attrs={'class':'form-control',
+                                                                             'placeholder' : 'Enter Password Again'})
+        self.fields['username'].widget = forms.widgets.TextInput(attrs={'class':'form-control',
+                                                                             'placeholder' : 'Enter Username'})
+        self.fields['email'].widget = forms.widgets.EmailInput(attrs={'class':'form-control',
+                                                                             'placeholder' : 'Enter email'})
         self.fields['email'].required = True
         
     def clean_email(self):
